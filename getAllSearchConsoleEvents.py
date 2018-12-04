@@ -9,11 +9,14 @@ SERVICE_ACCOUNT_FILE = 'service_credentials.json'
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 delegated_credentials = credentials.with_subject('nicosearchconsole@woven-operative-222317.iam.gserviceaccount.com')
 webmasters_service = googleapiclient.discovery.build('webmasters', 'v3', credentials=delegated_credentials)
+
+#En produccion estas urls son pasadas a traves de variables de matillion
 site_urls = [['https://reviews.thedenverchannel.com/'], ['https://reviews.newschannel5.com/'], ['https://reviews.kshb.com/'], ['https://reviews.newson6.com/'], ['https://reviews.theindychannel.com/'], ['https://reviews.news9.com/'], ['https://reviews.wxyz.com/'], ['https://mythreecents.com/'], ['https://www.retirementliving.com/'], ['https://reviews.wmar2news.com/'], ['https://reviews.10news.com/'], ['https://reviews.news5cleveland.com/'], ['https://reviews.abcactionnews.com/'], ['https://reviews.abc15.com/'], ['https://blog.consumeraffairs.com/']]
 
 #convertimos la lista de listas en una lista plana para poder iterar
-#flat_list = [item for sublist in site_urls for item in sublist]
-flat_list = ['https://reviews.news9.com/']
+flat_list = [item for sublist in site_urls for item in sublist]
+
+#dia a descargar
 day_to_download = str(datetime.datetime.now().date() - timedelta(days=20))
 
 def execute_site(site, start_row, date):
